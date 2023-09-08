@@ -12,25 +12,9 @@ struct ContentView: View {
     var body: some View {
         Text("Hello")
             .onTapGesture {
-                let str = "Test message"
-                let url = getDocumentsDirectory().appendingPathComponent("message.txt")
-                
-                do {
-                    try str.write(to: url, atomically: true, encoding: .utf8)
-                    
-                    let input = try String(contentsOf: url)
-                    print(input)
-                } catch {
-                    print(error.localizedDescription)
-                }
-                
+                let message = FileManager.default.decode("Test message to bundle", "Messagesss.txt")
+                print(message)
             }
-    }
-    
-    
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask) // sandboxed directory for the app
-        return paths[0]
     }
 }
 
