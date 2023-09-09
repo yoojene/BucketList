@@ -43,7 +43,6 @@
 		44B19E902AAB210E002DCDE5 = {
 			isa = PBXGroup;
 			children = (
-				44E3B00A2AABA39A00920495 /* Result.swift */,
 				44B19E9B2AAB210E002DCDE5 /* BucketList */,
 				44B19E9A2AAB210E002DCDE5 /* Products */,
 			);
@@ -60,6 +59,7 @@
 		44B19E9B2AAB210E002DCDE5 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
+				44E3B00A2AABA39A00920495 /* Result.swift */,
 				44B19E9C2AAB210E002DCDE5 /* BucketListApp.swift */,
 				44B19E9E2AAB210E002DCDE5 /* ContentView.swift */,
 				4479446E2AAB47DA007C6A24 /* EditView.swift */,
