@@ -17,6 +17,7 @@
 		44E3B00B2AABA39A00920495 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3B00A2AABA39A00920495 /* Result.swift */; };
 		44E3B00D2AADCFBC00920495 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3B00C2AADCFBC00920495 /* ContentView-ViewModel.swift */; };
 		44E3B00F2AADD31100920495 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3B00E2AADD31100920495 /* FileManager-DocumentsDirectory.swift */; };
+		44E3B0132AADFA8F00920495 /* EditView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E3B0122AADFA8F00920495 /* EditView-ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		44E3B00A2AABA39A00920495 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		44E3B00C2AADCFBC00920495 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
 		44E3B00E2AADD31100920495 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		44E3B0122AADFA8F00920495 /* EditView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditView-ViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +49,6 @@
 		44B19E902AAB210E002DCDE5 = {
 			isa = PBXGroup;
 			children = (
-				44E3B00C2AADCFBC00920495 /* ContentView-ViewModel.swift */,
 				44B19E9B2AAB210E002DCDE5 /* BucketList */,
 				44B19E9A2AAB210E002DCDE5 /* Products */,
 			);
@@ -64,9 +65,11 @@
 		44B19E9B2AAB210E002DCDE5 /* BucketList */ = {
 			isa = PBXGroup;
 			children = (
+				44B19E9E2AAB210E002DCDE5 /* ContentView.swift */,
+				44E3B0122AADFA8F00920495 /* EditView-ViewModel.swift */,
+				44E3B00C2AADCFBC00920495 /* ContentView-ViewModel.swift */,
 				44E3B00A2AABA39A00920495 /* Result.swift */,
 				44B19E9C2AAB210E002DCDE5 /* BucketListApp.swift */,
-				44B19E9E2AAB210E002DCDE5 /* ContentView.swift */,
 				44E3B00E2AADD31100920495 /* FileManager-DocumentsDirectory.swift */,
 				4479446E2AAB47DA007C6A24 /* EditView.swift */,
 				4479446A2AAB42FC007C6A24 /* Location.swift */,
@@ -160,6 +163,7 @@
 				4479446F2AAB47DA007C6A24 /* EditView.swift in Sources */,
 				44B19E9F2AAB210E002DCDE5 /* ContentView.swift in Sources */,
 				4479446B2AAB42FC007C6A24 /* Location.swift in Sources */,
+				44E3B0132AADFA8F00920495 /* EditView-ViewModel.swift in Sources */,
 				44E3B00D2AADCFBC00920495 /* ContentView-ViewModel.swift in Sources */,
 				44E3B00F2AADD31100920495 /* FileManager-DocumentsDirectory.swift in Sources */,
 				44B19E9D2AAB210E002DCDE5 /* BucketListApp.swift in Sources */,

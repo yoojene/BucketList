@@ -18,18 +18,17 @@ struct EditView: View {
     var location: Location
     var onSave: (Location) -> Void
     
-    @State private var name: String
-    @State private var description: String
+    @StateObject private var viewModel: ViewModel
     
     @State private var loadingState = LoadingState.loading
-    @State private var pages = [Page]()
+     
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    TextField("Place name", text: $name)
-                    TextField("Description", text: $description)
+                    TextField("Place name", text: $viewModel.name)
+                    TextField("Description", text: $viewModel.description)
                 }
                 
                 Section("Nearby..") {
@@ -37,7 +36,7 @@ struct EditView: View {
                     case .loading:
                         Text("Loading")
                     case .loaded:
-                        ForEach(pages, id: \.pageid) { page in
+                        ForEach(viewModel.pages, id: \.pageid) { page in
                             /*@START_MENU_TOKEN@*/Text(page.title)/*@END_MENU_TOKEN@*/
                                 .font(.headline)
                             
@@ -56,8 +55,8 @@ struct EditView: View {
                 Button("Save") {
                     var newLocation = location
                     newLocation.id = UUID()
-                    newLocation.name = name
-                    newLocation.description = description
+                    newLocation.name = viewModel.name
+                    newLocation.description = viewModel.description
                     
                     onSave(newLocation)
                     dismiss()
@@ -67,15 +66,15 @@ struct EditView: View {
                 }
             }
         }
+        
     }
     
     init(location: Location, onSave: @escaping (Location) -> Void ) { // @escaping stash away and call fn later (when we save)
         self.location = location
         self.onSave = onSave
-        
+        self._viewModel = StateObject(wrappedValue: ViewModel(location: location))
         // _<var> will update the State struct value of each property wrapper
-        _name = State(initialValue: location.name)
-        _description = State(initialValue: location.description)
+        
     }
     
     func fetchNearbyPlaces() async {
@@ -89,7 +88,7 @@ struct EditView: View {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let items = try JSONDecoder().decode(Result.self, from: data)
-            pages = items.query.pages.values.sorted()
+            viewModel.pages = items.query.pages.values.sorted()
             loadingState = .loaded
         } catch {
             loadingState = .failed
