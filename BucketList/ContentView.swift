@@ -54,21 +54,26 @@ struct ContentView: View {
                             viewModel.addLocation()
                         } label : {
                             Image(systemName: "plus")
+                                .padding()
+                                .background(.black.opacity(0.75))
+                                .font(.title)
+                                .clipShape(Circle())
+                                .padding(.trailing)
+                             
                         }
-                        .padding()
-                        .background(.black.opacity(0.75))
-                        .font(.title)
-                        .clipShape(Circle())
-                        .padding(.trailing)
+                        
+         
                     }
                     
                 }
+               
             }
             .sheet(item: $viewModel.selectedPlace) { place in
                 EditView(location: place) { newLocation in
                     viewModel.update(location: newLocation)
                 }
             }
+            
         } else {
             // unlock
             Button("Unlock Places") {
@@ -78,6 +83,9 @@ struct ContentView: View {
             .background(.blue)
             .foregroundColor(.white)
             .clipShape(Capsule())
+            .alert(viewModel.errorMessage, isPresented: $viewModel.hasError) {
+                Button("OK") {}
+            }
         }
     }
        

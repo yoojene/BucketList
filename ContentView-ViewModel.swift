@@ -18,6 +18,8 @@ extension ContentView {
         @Published private(set) var locations: [Location]
         @Published var selectedPlace: Location?
         @Published var isUnlocked = false
+        @Published var hasError = false
+        @Published var errorMessage = ""
         
         let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
         
@@ -64,7 +66,7 @@ extension ContentView {
             if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
                 let reason = "Please authenticate yourself to unlock your places"
                 
-                // Apple runs thi auth policy check anywhere, not necessarily main actor
+                // Apple runs this auth policy check anywhere, not necessarily main actor
                 context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
                     if success {
                         Task { @MainActor in // this makes the whole background task run on the Main Actor.  Stop runtime error warning
@@ -72,10 +74,20 @@ extension ContentView {
                         }
                     } else {
                         // error
+                        Task { @MainActor in // this makes the whole background task run on the Main Actor.  Stop runtime error warning
+                            self.errorMessage = authenticationError!.localizedDescription
+                            self.hasError = true
+                        }
+ 
+                        
                     }
                 }
             } else {
                 // no biometrics on device
+                Task { @MainActor in // this makes the whole background task run on the Main Actor.  Stop runtime error warning
+                    self.errorMessage = error!.localizedDescription
+                    self.hasError = true
+                }
             }
             
         }
