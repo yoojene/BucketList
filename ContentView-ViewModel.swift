@@ -6,18 +6,18 @@
 //
 
 import Foundation
+import LocalAuthentication
 import MapKit
-
 
 extension ContentView {
     // @MainActor means will update UI - all ObervableObject classes should be marked as such
     @MainActor class ViewModel: ObservableObject {
-
-        // these will all be listened for in contentview
-        @Published var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0),span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
         
+        // these will all be listened for in ContentView
+        @Published var mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 50, longitude: 0),span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
         @Published private(set) var locations: [Location]
         @Published var selectedPlace: Location?
+        @Published var isUnlocked = false
         
         let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedPlaces")
         
@@ -54,6 +54,30 @@ extension ContentView {
                 locations[index] = location
                 save()
             }
+        }
+        
+        func authenticate() {
+            
+            let context = LAContext()
+            var error: NSError?
+            
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                let reason = "Please authenticate yourself to unlock your places"
+                
+                // Apple runs thi auth policy check anywhere, not necessarily main actor
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                    if success {
+                        Task { @MainActor in // this makes the whole background task run on the Main Actor.  Stop runtime error warning
+                            self.isUnlocked = true
+                        }
+                    } else {
+                        // error
+                    }
+                }
+            } else {
+                // no biometrics on device
+            }
+            
         }
         
     }
